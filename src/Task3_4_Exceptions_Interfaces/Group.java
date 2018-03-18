@@ -14,6 +14,7 @@ public class Group {
         students[7] = new Student("Nikolay", "Ivanenko", 17, "man", 1,"KN-11" ,4962018);
         students[8] = new Student("Anna", "Malinina", 19, "woman", 2,"IT-112" ,4962019);
         students[9] = new Student("Petr", "Sidorov", 20, "man", 3,"IT-113" ,4962020);
+
         return students;
     }
 
