@@ -1,7 +1,13 @@
 package Task3_4_Exceptions_Interfaces.Operations;
 
+import Task3_4_Exceptions_Interfaces.CustomExceptions.FullGroupException;
+import Task3_4_Exceptions_Interfaces.Group;
+import Task3_4_Exceptions_Interfaces.Student;
+
 import java.util.Scanner;
 
+import static Task3_4_Exceptions_Interfaces.Group.addStudent;
+import static Task3_4_Exceptions_Interfaces.Group.students;
 import static Task3_4_Exceptions_Interfaces.View.ViewConstans.line;
 import static Task3_4_Exceptions_Interfaces.View.ViewConstans.mainMenu;
 
@@ -12,12 +18,14 @@ public class Operations {
         for (; ; ) {
             switch (scanner.nextInt()) {
                 case 1:
-                    System.out.println("ok");
-                    //showStudents();
+                    showStudents();
                     break;
                 case 2:
-                    System.out.println("ok");
-                    //addStudent();
+                    try {
+                        addStudent();
+                    } catch (FullGroupException e) {
+                        e.getMessage();
+                    }
                     break;
                 case 3:
                     System.out.println("ok");
@@ -38,6 +46,13 @@ public class Operations {
 
             }
         }
+    }
+
+    public static void showStudents() {
+        for (Student st : students) {
+            System.out.println(st);
+        }
+
     }
 
 }

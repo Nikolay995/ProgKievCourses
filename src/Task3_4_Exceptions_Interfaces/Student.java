@@ -5,6 +5,9 @@ public class Student extends Human {
     private String group;
     private int studentID;
 
+    public Student() {
+    }
+
     public Student(String name, String surname, int age, String gender, int course, String group, int studentID) {
         super(name, surname, age, gender);
         this.course = course;
@@ -36,17 +39,11 @@ public class Student extends Human {
         this.studentID = studentID;
     }
 
-    public Student(String name, String surname, int age, String gender) {
-
-        super(name, surname, age, gender);
-    }
-
     @Override
     public String toString() {
-        return "Student{" +
-                "course=" + course +
-                ", group='" + group + '\'' +
-                ", studentID=" + studentID +
-                '}';
+        return getSurname() + " " + getName() +
+                ", course: " + getCourse() +
+                ", group: " + getGroup() +
+                ", ID=" + getStudentID();
     }
 }

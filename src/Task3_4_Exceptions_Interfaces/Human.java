@@ -51,10 +51,8 @@ public class Human {
 
     @Override
     public String toString() {
-        return "Task3_4_Exceptions_Interfaces.Human{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
-                '}';
+        return "Name: " + name +
+                ", age: " + age +
+                ", gender:'" + gender;
     }
 }
