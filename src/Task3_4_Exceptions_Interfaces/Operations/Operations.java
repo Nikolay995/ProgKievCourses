@@ -1,10 +1,9 @@
 package Task3_4_Exceptions_Interfaces.Operations;
 import Task3_4_Exceptions_Interfaces.CustomExceptions.FullGroupException;
 import Task3_4_Exceptions_Interfaces.Student;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
-import static Task3_4_Exceptions_Interfaces.Group.students;
+
+import static Task3_4_Exceptions_Interfaces.Group.*;
 import static Task3_4_Exceptions_Interfaces.View.ViewConstants.*;
 
 public class Operations {
@@ -17,9 +16,9 @@ public class Operations {
                 case 1:
                     showStudents();
                     break;
-                case 2:                                  // может и намудрил, но оно работает :)
+                case 2:
                     try {
-                        if (!moreThanTen()) {
+                        if (!moreThanTen()) {        // может и намудрил, но оно работает :)
                             addStudent();
                         }
                     } catch (FullGroupException e) {
@@ -30,11 +29,9 @@ public class Operations {
                     removeInput();
                     break;
                 case 4:
-                    System.out.println("ok");
                     //sortMenu();
                     break;
                 case 5:
-                    System.out.println("ok");
                     //findStBySurname();
                     break;
                 case 6:
@@ -111,7 +108,7 @@ public class Operations {
     }
 
 
-    private static boolean moreThanTen() throws FullGroupException {   //проверяем, не больше ли 10 студентов
+    private static boolean moreThanTen() throws FullGroupException {
         boolean moreThanTen = false;
         if (students.size() >= 10) {
             moreThanTen = true;
@@ -138,9 +135,11 @@ public class Operations {
     }
 
     private static void removeBySurname() {
+
         System.out.print("Enter surname: ");
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
+
         for (Student student : students) {
             if (student.getSurname().equalsIgnoreCase(input)) {
                 students.remove(student);
