@@ -1,9 +1,6 @@
 package task5_IO.task5_1_FileCopy;
 
 import java.io.*;
-import java.util.Arrays;
-
-import task5_IO.task5_1_FileCopy.MyFilter;
 
 public class Main {
     public static void main(String[] args) {
