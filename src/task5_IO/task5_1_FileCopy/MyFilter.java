@@ -6,7 +6,7 @@ import java.io.FileFilter;
 public class MyFilter implements FileFilter {
     private String[] array;
 
-    public MyFilter(String... array) {
+    MyFilter(String... array) {
         this.array = array;
     }
 

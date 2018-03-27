@@ -1,37 +1,29 @@
 package task5_IO.task5_1_FileCopy;
 
 import java.io.*;
+import java.util.Arrays;
 
 import task5_IO.task5_1_FileCopy.MyFilter;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
-        File baseDir = new File("/d:/MyDir");
-        File copyDir = new File("/d:/TargetDir");
+        File baseDir = new File("D:\\MyDir");
+        File copyDir = new File("D:\\TargetDir");
 
         MyFilter filter = new MyFilter("doc");
 
         File[] fileList = baseDir.listFiles(filter);
 
-
-        try (InputStream is = new FileInputStream(baseDir);
-             OutputStream os = new FileOutputStream(copyDir)) {
-            int i;
-            for (File f : fileList) {
-                do {
-                    i = is.read();
-                    if (i != -1) os.write(i);
-                } while (i != -1);
+        if (fileList == null || fileList.length == 0) {
+            System.out.println("Файлов с данным расширением не найдено");
+        } else {
+            for (File originalFile : fileList) {
+                Copy.copy(originalFile, new File(copyDir.getPath() + "//" + originalFile.getName()));
             }
-
-
-//        showFiles(baseDir);
-//        showFiles(copyDir);
-
-
+            System.out.println("Следующие файлы были скопированы: ");
+            showFiles(copyDir);
         }
-
     }
 
     private static void showFiles(File directory) {
