@@ -24,7 +24,6 @@ public class Finder {
                     }
                 }
             }
-
             if (i == 0) {
                 System.out.println("Одинаковых слов не найдено.");
             } else System.out.println("Слова сохранены в файл " + result.getName());

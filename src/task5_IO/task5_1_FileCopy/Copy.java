@@ -35,7 +35,7 @@ public class Copy {
         }
     }
 
-    public static void showFiles(File directory) {
+    private static void showFiles(File directory) {
         String[] array = directory.list();
         if (array != null) {
             for (String file : array) {

@@ -10,7 +10,7 @@ public class Main {
 
         MyFilter filter = new MyFilter("doc");         //фильтр по расширению
 
-        Copy.copyWithFilter(baseDir, copyDir, filter);          //копируем файлы
+        Copy.copyWithFilter(baseDir, copyDir, filter);         //копируем файлы
 
         }
 
