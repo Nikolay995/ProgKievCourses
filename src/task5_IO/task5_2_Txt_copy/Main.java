@@ -8,8 +8,8 @@ public class Main {
         File fileTwo = new File("d:/second.txt");
         File result = new File("d:/result.txt");
 
-        Finder find = new Finder();
-        find.findWords(fileOne, fileTwo, result);
+        Finder finder = new Finder();
+        finder.findWords(fileOne, fileTwo, result);
     }
 
 }
