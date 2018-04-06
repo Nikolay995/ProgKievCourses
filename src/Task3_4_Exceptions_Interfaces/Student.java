@@ -1,26 +1,25 @@
 package Task3_4_Exceptions_Interfaces;
 
 public class Student extends Human {
-    private int course;
+    private long iD;
     private String group;
-    private int studentID;
+
+    public Student(String name, String lastname, int age, boolean sex, long iD, String group) {
+        super(name, lastname, age, sex);
+        this.iD = iD;
+        this.group = group;
+    }
 
     public Student() {
+        super();
     }
 
-    public Student(String name, String surname, int age, String gender, int course, String group, int studentID) {
-        super(name, surname, age, gender);
-        this.course = course;
-        this.group = group;
-        this.studentID = studentID;
+    public long getZach() {
+        return iD;
     }
 
-    public int getCourse() {
-        return course;
-    }
-
-    public void setCourse(int course) {
-        this.course = course;
+    public void setZach(long iD) {
+        this.iD = iD;
     }
 
     public String getGroup() {
@@ -31,19 +30,9 @@ public class Student extends Human {
         this.group = group;
     }
 
-    public int getStudentID() {
-        return studentID;
-    }
-
-    public void setStudentID(int studentID) {
-        this.studentID = studentID;
-    }
-
     @Override
     public String toString() {
-        return getSurname() + " " + getName() +
-                ", course: " + getCourse() +
-                ", group: " + getGroup() +
-                ", ID=" + getStudentID();
+        return "Student [ID=" + iD + ", group=" + group + "]" + super.toString();
     }
+
 }

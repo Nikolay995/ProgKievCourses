@@ -1,79 +1,198 @@
 package Task3_4_Exceptions_Interfaces;
 
-import java.util.Scanner;
+import java.util.Arrays;
 
-import static Task3_4_Exceptions_Interfaces.View.ViewConstants.bigLine;
-import static Task3_4_Exceptions_Interfaces.View.ViewConstants.line;
-import static Task3_4_Exceptions_Interfaces.View.ViewConstants.mainMenu;
+import javax.swing.JOptionPane;
 
-public class Group implements Voenkomat {
-    public Student[] students = new Student[10];
+public class Group implements Voencom {
+    private Student[] studentArray = new Student[10];
+    private String groupName;
 
-    public void createGroup() {
-        students[0] = new Student("Ivan", "Ivanov", 17, "man", 1, "KN-11", 4962011);
-        students[1] = new Student("Andrey", "Petrov", 18, "man", 2, "KN-21", 4962012);
-        students[2] = new Student("Anna", "Soboleva", 18, "woman", 2, "KN-21", 4962013);
-        students[3] = new Student("Mikhail", "Morozov", 19, "man", 3, "IT-113", 4962014);
-        students[4] = new Student("Dmitriy", "Petrenko", 20, "man", 3, "IT-113", 4962015);
-        students[5] = new Student("Andrey", "Shevchenko", 21, "man", 4, "KN-41", 4962016);
-        students[6] = new Student("Marina", "Lytvynenko", 21, "woman", 4, "KN-41", 4962017);
-        students[7] = new Student("Nikolay", "Ivanenko", 17, "man", 1, "KN-11", 4962018);
-        students[8] = new Student("Yaroslav", "Nesterenko", 21, "man", 4, "KN-41", 4962019);
-        students[9] = new Student("Petr", "Sidorov", 20, "man", 3, "IT-113", 4962020);
-        ;
-
+    public Group() {
+        super();
+        this.groupName = "unknown";
     }
 
-    public void showStudents() {
-        System.out.print(bigLine);
-        for (int i = 0; i < students.length - 1; i++) {
-            System.out.println(i + 1 + " | " + students[i]);
+    public Group(String groupName) {
+        super();
+        this.groupName = groupName;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public void addStudentInteractive() throws CustomException {
+        try {
+            String name = getName("Input student name");
+            String lastName = getName("Input student lastname");
+            int age = getAge();
+            boolean sex = getSex("Input sex -> man or women");
+            long zach = getZach("Input zach number");
+            String group = this.groupName;
+            Student st = new Student(name, lastName, age, sex, zach, group);
+            this.addStudent(st);
+        } catch (NullPointerException e) {
+            System.out.println("Canceled");
+            return;
         }
-        System.out.println(bigLine);
     }
 
-
-    public void addStudent() { //метод для добавления
-
-        Scanner sc = new Scanner(System.in);
-
-        System.out.println("Enter student's name: ");
-        String inputName = sc.next();
-
-        System.out.println("Enter student's surname: ");
-        String inputSurname = sc.next();
-
-        System.out.println("Enter student's age: ");
-        int inputAge = sc.nextInt();
-
-        System.out.println("Enter student's gender (man/woman): ");
-        String inputGender = sc.next();
-
-        System.out.println("Enter student's course: ");
-        int inputCourse = sc.nextInt();
-
-        System.out.println("Enter student's group: ");
-        String inputGroup = sc.next();
-
-        System.out.println("Enter student's ID: ");
-        int inputID = sc.nextInt();
-
-        Student studentInput = new Student(inputName, inputSurname, inputAge, inputGender, inputCourse, inputGroup, inputID);
-        students[students.length - 1] = studentInput;
-        System.out.println(line);
-        System.out.println("Student added successfully!\n");
-        System.out.println(line + mainMenu + line);
-    }
-
-
-    @Override
-    public boolean isGoingToArmy() {
-        for (Student std : students) {
-            if (std.getAge() >= 18 && std.getGender().equals("man")) {
-                System.out.println(std.getSurname());
-                return true;
+    public void addStudent(Student student) throws CustomException {
+        if (student == null) {
+            throw new IllegalArgumentException("Null student");
+        }
+        for (int i = 0; i < studentArray.length; i++) {
+            if (studentArray[i] == null) {
+                studentArray[i] = student;
+                return;
             }
         }
-        return false;
+        throw new CustomException();
     }
+
+    public Student search(String lastName) {
+        for (Student student : studentArray) {
+            if (student != null && student.getLastname().equals(lastName)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public void deleteStudent(int n) {
+        if (!(n >= 0 && n < studentArray.length)) {
+            System.out.println("Error index");
+            return;
+        }
+        studentArray[n] = null;
+    }
+
+    private void sort() {
+        for (int i = 0; i < studentArray.length - 1; i++) {
+            for (int j = i + 1; j < studentArray.length; j++) {
+                if (compareStudent(studentArray[i], studentArray[j]) > 0) {
+                    Student temp = studentArray[i];
+                    studentArray[i] = studentArray[j];
+                    studentArray[j] = temp;
+                }
+            }
+        }
+    }
+
+    private int compareStudent(Student a, Student b) {
+        if (a != null && b == null) {
+            return 1;
+        }
+        if (a == null && b != null) {
+            return -1;
+        }
+        if (a == null && b == null) {
+            return 0;
+        }
+        return a.getLastname().compareTo(b.getLastname());
+
+    }
+
+    private int getAge() throws NullPointerException {
+        boolean done = false;
+        int age = 0;
+        for (; !done; ) {
+            try {
+                age = Integer.valueOf(JOptionPane.showInputDialog("Input student age"));
+                done = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showInternalMessageDialog(null, "Invalid ");
+            }
+        }
+        return age;
+    }
+
+    private String getName(String message) throws NullPointerException {
+        boolean done = false;
+        String name = "";
+        for (; !done; ) {
+            try {
+                name = JOptionPane.showInputDialog(message);
+                done = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showInternalMessageDialog(null, "Invalid format");
+            }
+        }
+        return name;
+    }
+
+    private boolean getSex(String message) throws NullPointerException {
+        boolean done = false;
+        boolean name = false;
+        for (; !done; ) {
+            try {
+                name = JOptionPane.showInputDialog(message).equals("man");
+                done = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showInternalMessageDialog(null, "Invalid format");
+            }
+        }
+        return name;
+    }
+
+    private long getZach(String message) throws NullPointerException {
+        boolean done = false;
+        long name = 0;
+        for (; !done; ) {
+            try {
+                name = Long.valueOf(JOptionPane.showInputDialog(message));
+                done = true;
+            } catch (NumberFormatException e) {
+                JOptionPane.showInternalMessageDialog(null, "Invalid format");
+            }
+        }
+        return name;
+    }
+
+    public void sortByParametr(int i) {
+        Arrays.sort(this.studentArray, new StudentComparator(i));
+    }
+
+    public void sortByParametr(int i, boolean forward) {
+        Arrays.sort(this.studentArray, new StudentComparator(i, forward));
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Group: " + this.groupName).append(System.lineSeparator());
+        int i = 0;
+        // sort();
+        for (Student student : studentArray) {
+            if (student != null) {
+                sb.append((++i) + ") ").append(student);
+                sb.append(System.lineSeparator());
+            }
+        }
+        return sb.toString();
+    }
+
+    @Override
+    public Student[] getRecruter() {
+        int n = 0;
+        for (Student student : studentArray) {
+            if (student != null && student.isSex() && student.getAge() >= 18) {
+                n += 1;
+            }
+        }
+        Student[] studentArray = new Student[n];
+        int i = 0;
+        for (Student student : studentArray) {
+            if (student != null && student.isSex() && student.getAge() >= 18) {
+                studentArray[i++] = student;
+            }
+        }
+        return studentArray;
+    }
+
 }
