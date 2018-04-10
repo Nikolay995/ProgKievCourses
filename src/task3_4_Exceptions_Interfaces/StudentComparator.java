@@ -1,4 +1,4 @@
-package Task3_4_Exceptions_Interfaces;
+package task3_4_Exceptions_Interfaces;
 
 import java.util.Comparator;
 

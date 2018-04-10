@@ -1,4 +1,4 @@
-package Task3_4_Exceptions_Interfaces;
+package task3_4_Exceptions_Interfaces;
 
 /**
  * 1) Создайте класс, описывающий человека (создайте метод, выводящий информацию о человеке).
