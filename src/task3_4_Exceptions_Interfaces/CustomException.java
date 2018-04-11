@@ -4,7 +4,7 @@ public class CustomException extends Exception {
 
     @Override
     public String getMessage() {
-        return "Go away!!";
+        return "Group is full";
     }
 
 }

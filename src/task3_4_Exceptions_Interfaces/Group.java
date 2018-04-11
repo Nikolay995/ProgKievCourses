@@ -1,11 +1,13 @@
 package task3_4_Exceptions_Interfaces;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Group implements Voencom {
-    private Student[] studentArray = new Student[10];
+    private List<Student> studentArray = new ArrayList<>();
     private String groupName;
 
     public Group() {
@@ -46,9 +48,9 @@ public class Group implements Voencom {
         if (student == null) {
             throw new IllegalArgumentException("Null student");
         }
-        for (int i = 0; i < studentArray.length; i++) {
-            if (studentArray[i] == null) {
-                studentArray[i] = student;
+        for (int i = 0; i < studentArray.size(); i++) {
+            if (studentArray.get(i) == null) {
+                studentArray.set(i, student);
                 return;
             }
         }
@@ -65,20 +67,20 @@ public class Group implements Voencom {
     }
 
     public void deleteStudent(int n) {
-        if (!(n >= 0 && n < studentArray.length)) {
-            System.out.println("Error index");
+        if (!(n >= 0 && n < studentArray.size())) {
+            System.out.println("Error");
             return;
         }
-        studentArray[n] = null;
+        studentArray.set(n, null);
     }
 
     private void sort() {
-        for (int i = 0; i < studentArray.length - 1; i++) {
-            for (int j = i + 1; j < studentArray.length; j++) {
-                if (compareStudent(studentArray[i], studentArray[j]) > 0) {
-                    Student temp = studentArray[i];
-                    studentArray[i] = studentArray[j];
-                    studentArray[j] = temp;
+        for (int i = 0; i < studentArray.size() - 1; i++) {
+            for (int j = i + 1; j < studentArray.size(); j++) {
+                if (compareStudent(studentArray.get(i), studentArray.get(j)) > 0) {
+                    Student temp = studentArray.get(i);
+                    studentArray.set(i, studentArray.get(j));
+                    studentArray.set(j, temp);
                 }
             }
         }
@@ -155,11 +157,11 @@ public class Group implements Voencom {
     }
 
     public void sortByParametr(int i) {
-        Arrays.sort(this.studentArray, new StudentComparator(i));
+        Arrays.sort(new List[]{studentArray}, new StudentComparator(i));
     }
 
     public void sortByParametr(int i, boolean forward) {
-        Arrays.sort(this.studentArray, new StudentComparator(i, forward));
+        Arrays.sort(new List[]{this.studentArray}, new StudentComparator(i, forward));
     }
 
     @Override
@@ -167,7 +169,7 @@ public class Group implements Voencom {
         StringBuilder sb = new StringBuilder();
         sb.append("Group: " + this.groupName).append(System.lineSeparator());
         int i = 0;
-        // sort();
+
         for (Student student : studentArray) {
             if (student != null) {
                 sb.append((++i) + ") ").append(student);
@@ -178,18 +180,19 @@ public class Group implements Voencom {
     }
 
     @Override
-    public Student[] getRecruter() {
+    public List<Student> getRecruter() {
         int n = 0;
         for (Student student : studentArray) {
             if (student != null && student.isSex() && student.getAge() >= 18) {
                 n += 1;
             }
         }
-        Student[] studentArray = new Student[n];
+        List<Student> studentArray = new ArrayList<>();
+
         int i = 0;
         for (Student student : studentArray) {
             if (student != null && student.isSex() && student.getAge() >= 18) {
-                studentArray[i++] = student;
+                studentArray.set(i++, student);
             }
         }
         return studentArray;
