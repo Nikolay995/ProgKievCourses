@@ -1,0 +1,4 @@
+https://www.github.com/
+https://www.google.com.ua/
+http://www.unexistingwebpage.com/
+https://www.caveofprogramming.com/java/java-file-reading-and-writing-files-in-java.html/
